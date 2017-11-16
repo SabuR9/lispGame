@@ -9,15 +9,15 @@ Karsu kopa 6-A bez kreiču  dāmas, spele piedalas 4 speletaji, ka min 1 human u
 4)	Ja beidzas kartis uz rokas speletajs beidz spelet
 5)	Spele līdz vienam no speletajiem paliek vieniga karts piku dama
 
-<b>Prasības</b>
-Realizēt kāršu spēli ragana.
-Iespēja izvēlēties spēlētaju skaitu no 2-4.
-Spēles kāršu kopa sastāv no 35 kārtīm (6-A, izņemot kreiču dāmu).
-Spēlē piedalās viens cilvēks un 1-3 datora vadītie spēlētāji.
-Spēlētājs spēj izvēlēties karti kuru paņems no iepriekšejā spēlētāja, datora vadītais spēlētais izvēlās nejauši.
-Kārtis sadalās vienmērīgi starp spēlētājiem.
-Beidzoties kartīm uz rokas spēlētajs iziet no spēles.
-Paliekot pēdējam spēlētājam ar vienīgi vienu pīķa dāmu spēlētājs zaudē.
+<b>Prasības</b><br>
+Realizēt kāršu spēli ragana.<br>
+Iespēja izvēlēties spēlētaju skaitu no 2-4.<br>
+Spēles kāršu kopa sastāv no 35 kārtīm (6-A, izņemot kreiču dāmu).<br>
+Spēlē piedalās viens cilvēks un 1-3 datora vadītie spēlētāji.<br>
+Spēlētājs spēj izvēlēties karti kuru paņems no iepriekšejā spēlētāja, datora vadītais spēlētais izvēlās nejauši.<br>
+Kārtis sadalās vienmērīgi starp spēlētājiem.<br>
+Beidzoties kartīm uz rokas spēlētajs iziet no spēles.<br>
+Paliekot pēdējam spēlētājam ar vienīgi vienu pīķa dāmu spēlētājs zaudē.<br>
 
 
 Iekšējie spēles notikumi:
