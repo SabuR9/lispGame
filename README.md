@@ -19,7 +19,7 @@ Kārtis sadalās vienmērīgi starp spēlētājiem.<br>
 Beidzoties kartīm uz rokas spēlētajs iziet no spēles.<br>
 Paliekot pēdējam spēlētājam ar vienīgi vienu pīķa dāmu spēlētājs zaudē.<br>
 
-<div style="border: 1px solid grainsbro;">
+
 Iekšējie spēles notikumi:
 1)	Spēles kartis tiek sajauktas
 2)	Tiek izdalīts vienmērīgi starp spēlētājiem
@@ -29,4 +29,3 @@ Iekšējie spēles notikumi:
 6)	Pārbauda uz pāriem
 7)	Gājiens tiek nodots nākamajam spēlētājam, pāriet uz 5 soli
 8)	Spēle beidzās kad paliek viens spēlētājs ar pīķa dāmu
-</div>
