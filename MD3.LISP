@@ -11,6 +11,15 @@
 (defparameter handTwo NIL)
 (defparameter cardCount NIL)
 
+(defparameter p0cards NIL)
+(defparameter p1cards NIL)
+(defparameter p2cards NIL)
+(defparameter p3cards NIL)
+(defparameter rotation '(0 1 2 3)) ;;Uztaisit lai uzgenere rotaciju kad tiek uzgenerets speletaju saraksts
+(defparameter playerCount NIL)
+(defparameter playerList NIL)
+(defparameter splitedCards '((1 2 3)(3 4 5)(5 6 7)(7 8 9))) ;; uztaisit lai sadala kartis, so parametru izmanto lai sadalitu speletaju karsu mainigajos
+
 (defun shuffleDeck (deck)
 (setq shuffledDeck (mapcar #'rest (sort (mapcar #'(lambda (x) (cons (random 1.0) x)) deck) 
                      #'< 
@@ -47,11 +56,11 @@
         ((member (car lst) (cdr lst) :test 'equal) (cons (car lst) (findPairs (cdr lst))))
         (t (findPairs (cdr lst)))))
 
-+
+
 
 (defun input (player cardCount)
 
-(setq value (nth player '(C C P C))) // Aizstat list ar globalo speletaju sarakstu
+(setq value (nth player playerList)) 
 (cond ((equal value 'C) (random cardCount)) 
         ((equal value 'P) 
 (print (format nil "Enter card num  1-~a" cardCount) )
@@ -67,7 +76,7 @@
   do (setf rowK (read))         
   (if (not (numberp rowK))(setq rowK -1) )
   (if (or (<= rowK 0)(> rowK cardCount))(print (format nil "Wrong input! Enter card num  1-~a" cardCount)))
-)row)
+)rowK)
 
 
 (defun setPlayers ()
@@ -110,24 +119,57 @@
               (list (rev (car list))))))
 
 
-(defparameter p1cards '(2 5 3))
-(defparameter p2cards '(7 8 9))
-(defparameter p3cards '(4 5 6))
-(defparameter p4cards '(5 6 7))
 
-(defun takeCard (curPlayer cardToTake)
-(if (equal curPlayer 0)(progn(setq curCards p1cards)(setq prevCards p4cards)))
-(if (equal curPlayer 1)(progn(setq curCards p2cards)(setq prevCards p1cards)))
-(if (equal curPlayer 2)(progn(setq curCards p3cards)(setq prevCards p2cards)))
-(if (equal curPlayer 3)(progn(setq curCards p4cards)(setq prevCards p3cards)))
+(defun takeCard (cardToTake)
+(print (format nil "Player ~a taking card from ~a" (getCurPlayer) (getPrevPlayer)))
+(setq curPlayer (getCurPlayer))
+(setq prevPlayer (getPrevPlayer))
+(if (equal curPlayer 0)(setq curCards p0cards))
+(if (equal curPlayer 1)(setq curCards p1cards))
+(if (equal curPlayer 2)(setq curCards p2cards))
+(if (equal curPlayer 3)(setq curCards p3cards))
+(if (equal prevPlayer 0)(setq prevCards p0cards))
+(if (equal prevPlayer 1)(setq prevCards p1cards))
+(if (equal prevPlayer 2)(setq prevCards p2cards))
+(if (equal prevPlayer 3)(setq prevCards p3cards))
 (setq curCards (append curCards (list (nth cardToTake prevCards))))
 (setq prevCards (remove-nth cardToTake prevCards))
-(if (equal curPlayer 0)(progn(setq p1cards curCards)(setq p4cards prevCards)))
-(if (equal curPlayer 1)(progn(setq p2cards curCards)(setq p1cards prevCards)))
-(if (equal curPlayer 2)(progn(setq p3cards curCards)(setq p2cards prevCards)))
-(if (equal curPlayer 3)(progn(setq p4cards curCards)(setq p3cards prevCards)))
+(if (equal curPlayer 0)(setq p0cards curCards))
+(if (equal curPlayer 1)(setq p1cards curCards))
+(if (equal curPlayer 2)(setq p2cards curCards))
+(if (equal curPlayer 3)(setq p3cards curCards))
+(if (equal prevPlayer 0)(setq p0cards prevCards))
+(if (equal prevPlayer 1)(setq p1cards prevCards))
+(if (equal prevPlayer 2)(setq p2cards prevCards))
+(if (equal prevPlayer 3)(setq p3cards prevCards))
 (setq curCards NIL)
 (setq prevCards NIL)
+)
+
+(defun getPrevPlayer ()
+(car (last rotation))
+)
+
+(defun getPrevCardCount ()
+(if (equal (getPrevPlayer) 0)(setq c (length p0cards)))
+(if (equal (getPrevPlayer) 1)(setq c (length p1cards)))
+(if (equal (getPrevPlayer) 2)(setq c (length p2cards)))
+(if (equal (getPrevPlayer) 3)(setq c (length p3cards)))
+c
+)
+
+(defun getCurPlayer ()
+(car rotation)
+)
+
+(defun getCurPlayerType ()
+(nth (car rotation) playerList)
+)
+
+(defun nextTurn ()
+(takeCard (input (getCurPlayer) (getPrevCardCount)))
+(setq rotation (append (cdr rotation) (list(car  rotation))))
+(printHands)
 )
 
 (defun remove-nth (n list)
@@ -137,3 +179,29 @@
   (if (or (zerop n) (null list))
     (cdr list)
     (cons (car list) (remove-nth (1- n) (cdr list)))))
+
+(defun splitCards ()         
+(if (>= playerCount 1) (setq p0cards (nth 0 splitedCards)))
+(if (>= playerCount 2) (setq p1cards (nth 1 splitedCards)))
+(if (>= playerCount 3) (setq p2cards (nth 2 splitedCards)))
+(if (>= playerCount 4) (setq p3cards (nth 3 splitedCards)))
+(if (equal playerCount 2) (setq rotation '(0 1)))
+(if (equal playerCount 3) (setq rotation '(0 1 2)))
+(if (equal playerCount 4) (setq rotation '(0 1 2 3)))
+)
+
+(defun printHands ()
+(print (format nil "Player 0 : ~A" p0cards))
+(print (format nil "Player 1 : ~A" p1cards))
+(print (format nil "Player 2 : ~A" p2cards))
+(print (format nil "Player 3 : ~A" p3cards))
+(print (format nil "Rotation : ~A" rotation))
+(print "")
+)
+
+(defun main ()
+(setq playerList (setPlayers))
+(splitCards)
+(printHands)
+(nextTurn)
+)
