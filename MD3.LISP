@@ -49,9 +49,18 @@
 
 
 
-(defun mainGame ()
-  (format  t "Game started. Player count: 2")
-  (shuffleDeck defaultDeck)
-  (dealHands shuffledDeck)
-  (checkCardCount)
+(defun input (player cardCount)
+
+(setq value (nth player '(C C P C))) // Aizstat list ar globalo speletaju sarakstu
+(cond ((equal value 'C) (+ (random cardCount) 1)) 
+        ((equal value 'P) 
+(print (format nil "Enter card num  1-~a" cardCount) )
+(playerInput cardCount)
+))
 )
+
+(defun playerInput (cardCount) // vajag uzrakstit lai prasa ievadit lidz bridim kamer nav skaitlis kur ir diapozona 1 - cardCount
+(read)
+)
+
+
