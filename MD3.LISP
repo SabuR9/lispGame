@@ -69,7 +69,10 @@
   (if (or (<= rowK 0)(> rowK cardCount))(print (format nil "Wrong input! Enter card num  1-~a" cardCount)))
 )row)
 
+(defparameter playerList NIL)
+
 (defun setPlayers ()
+(setq playerList NIL)
 (print "Input player count 2-4: ")
 (setq playerCount (playerCountInput))
 (print "Input players (C for comput or P for Human player)")
@@ -77,7 +80,7 @@
 (loop while (not(> rowS playerCount)) 
   do
   (setq player (playerInput rowS))     
-  (setq playerList (list playerList player))
+  (setq playerList (cons player playerList))
   (setf rowS (+ rowS 1))
 ) playerList
 )
