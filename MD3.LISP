@@ -52,10 +52,10 @@
 (defun input (player cardCount)
 
 (setq value (nth player '(C C P C))) // Aizstat list ar globalo speletaju sarakstu
-(cond ((equal value 'C) (+ (random cardCount) 1)) 
+(cond ((equal value 'C) (random cardCount)) 
         ((equal value 'P) 
 (print (format nil "Enter card num  1-~a" cardCount) )
-(playerCardInput cardCount)
+(-(playerCardInput cardCount) 1)
 ))
 )
 
@@ -69,7 +69,6 @@
   (if (or (<= rowK 0)(> rowK cardCount))(print (format nil "Wrong input! Enter card num  1-~a" cardCount)))
 )row)
 
-(defparameter playerList NIL)
 
 (defun setPlayers ()
 (setq playerList NIL)
@@ -82,7 +81,7 @@
   (setq player (playerInput rowS))     
   (setq playerList (cons player playerList))
   (setf rowS (+ rowS 1))
-) playerList
+) (rev playerList)
 )
 
 (defun playerInput (playerNum)
@@ -104,3 +103,37 @@
 )rowC
 )
 
+(defun rev (list)
+  (if (atom list)								
+      list
+      (append (rev (cdr list))			
+              (list (rev (car list))))))
+
+
+(defparameter p1cards '(2 5 3))
+(defparameter p2cards '(7 8 9))
+(defparameter p3cards '(4 5 6))
+(defparameter p4cards '(5 6 7))
+
+(defun takeCard (curPlayer cardToTake)
+(if (equal curPlayer 0)(progn(setq curCards p1cards)(setq prevCards p4cards)))
+(if (equal curPlayer 1)(progn(setq curCards p2cards)(setq prevCards p1cards)))
+(if (equal curPlayer 2)(progn(setq curCards p3cards)(setq prevCards p2cards)))
+(if (equal curPlayer 3)(progn(setq curCards p4cards)(setq prevCards p3cards)))
+(setq curCards (append curCards (list (nth cardToTake prevCards))))
+(setq prevCards (remove-nth cardToTake prevCards))
+(if (equal curPlayer 0)(progn(setq p1cards curCards)(setq p4cards prevCards)))
+(if (equal curPlayer 1)(progn(setq p2cards curCards)(setq p1cards prevCards)))
+(if (equal curPlayer 2)(progn(setq p3cards curCards)(setq p2cards prevCards)))
+(if (equal curPlayer 3)(progn(setq p4cards curCards)(setq p3cards prevCards)))
+(setq curCards NIL)
+(setq prevCards NIL)
+)
+
+(defun remove-nth (n list)
+  (declare
+    (type (integer 0) n)
+    (type list list))
+  (if (or (zerop n) (null list))
+    (cdr list)
+    (cons (car list) (remove-nth (1- n) (cdr list)))))
