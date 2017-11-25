@@ -47,7 +47,7 @@
         ((member (car lst) (cdr lst) :test 'equal) (cons (car lst) (findPairs (cdr lst))))
         (t (findPairs (cdr lst)))))
 
-
++
 
 (defun input (player cardCount)
 
@@ -55,12 +55,52 @@
 (cond ((equal value 'C) (+ (random cardCount) 1)) 
         ((equal value 'P) 
 (print (format nil "Enter card num  1-~a" cardCount) )
-(playerInput cardCount)
+(playerCardInput cardCount)
 ))
 )
 
-(defun playerInput (cardCount) // vajag uzrakstit lai prasa ievadit lidz bridim kamer nav skaitlis kur ir diapozona 1 - cardCount
-(read)
+
+(defun playerCardInput (cardCount)
+(setq rowK -1)
+(print (format nil "Enter card num  1-~a" cardCount) )
+(loop while (or (<= rowK 0)(> rowK cardCount)) 
+  do (setf rowK (read))         
+  (if (not (numberp rowK))(setq rowK -1) )
+  (if (or (<= rowK 0)(> rowK cardCount))(print (format nil "Wrong input! Enter card num  1-~a" cardCount)))
+)row)
+
+(defparameter playerList NIL)
+
+(defun setPlayers ()
+(setq playerList NIL)
+(print "Input player count 2-4: ")
+(setq playerCount (playerCountInput))
+(print "Input players (C for comput or P for Human player)")
+(setq rowS 1)
+(loop while (not(> rowS playerCount)) 
+  do
+  (setq player (playerInput rowS))     
+  (setq playerList (cons player playerList))
+  (setf rowS (+ rowS 1))
+) playerList
 )
 
+(defun playerInput (playerNum)
+(setq rowP 'W)
+(print (format nil "Enter player ~a:" playerNum))
+(loop while (not(or (equal rowP 'C)(equal rowP 'P))) 
+  do (setf rowP (read))          
+  (if  (numberp rowP)(setq rowP 'W) )
+  (if (not(or (equal rowP 'C)(equal rowP 'P))) (print "Wrong input! Enter C for comput or P for Human player"))
+)rowP
+)
+
+(defun playerCountInput ()
+(setq rowC -1)
+(loop while (or (< rowC 2)(> rowC 4))
+  do (setf rowC (read))          
+  (if  (not(numberp rowC))(setq rowC -1) )
+  (if (or (< rowC 2)(> rowC 4))(print "Wrong input! Enter number  2-4"))
+)rowC
+)
 
