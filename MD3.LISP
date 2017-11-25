@@ -47,7 +47,7 @@
         ((member (car lst) (cdr lst) :test 'equal) (cons (car lst) (findPairs (cdr lst))))
         (t (findPairs (cdr lst)))))
 
-
++
 
 (defun input (player cardCount)
 
