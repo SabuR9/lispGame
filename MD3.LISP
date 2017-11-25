@@ -55,18 +55,49 @@
 (cond ((equal value 'C) (+ (random cardCount) 1)) 
         ((equal value 'P) 
 (print (format nil "Enter card num  1-~a" cardCount) )
-(playerInput cardCount)
+(playerCardInput cardCount)
 ))
 )
 
 
-(defun playerInput (cardCount)
+(defun playerCardInput (cardCount)
 (setq row -1)
 (print (format nil "Enter card num  1-~a" cardCount) )
 (loop while (or (<= row 0)(> row cardCount)) 
-  do (setf row (read))           ; or better: do (decf row)
+  do (setf row (read))         
   (if (not (numberp row))(setq row -1) )
   (if (or (<= row 0)(> row cardCount))(print (format nil "Wrong input! Enter card num  1-~a" cardCount)))
 )row)
 
+(defun setPlayers ()
+(print "Input player count 2-4: ")
+(setq playerCount (playerCountInput))
+(print "Input players (C for comput or P for Human player)")
+(setq row 1)
+(setq playerList '())
+(loop while (not(> row playerCount)) 
+  do
+ (setq player (playerInput row))     
+ (cons  playerList player)
+  (setf row (+ row 1))  
+))
+
+(defun playerInput (playerNum)
+(setq row 'W)
+(print (format nil "Enter player ~a:" playerNum))
+(loop while (not(or (equal row 'C)(equal row 'P))) 
+  do (setf row (read))          
+  (if  (numberp row)(setq row 'W) )
+  (if (not(or (equal row 'C)(equal row 'P))) (print "Wrong input! Enter C for comput or P for Human player"))
+)row
+)
+
+(defun playerCountInput ()
+(setq row -1)
+(loop while (or (< row 2)(> row 4))
+  do (setf row (read))          
+  (if  (not(numberp row))(setq row -1) )
+  (if (or (< row 2)(> row 4))(print "Wrong input! Enter number  2-4"))
+)row
+)
 
