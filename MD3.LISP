@@ -77,7 +77,7 @@
 (loop while (not(> rowS playerCount)) 
   do
   (setq player (playerInput rowS))     
-  (setf playerList (list playerList player))
+  (setq playerList (list playerList player))
   (setf rowS (+ rowS 1))
 ) playerList
 )
