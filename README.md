@@ -1,3 +1,21 @@
+TODO:
+* samaisīt kārtis (+shuffleDeck)
+* izvēlēties spēletāju skaitu(-)
+* izvēlēties kurš spēlētājs cilvēks/dators(-)
+* apstrādāt ievades kļūdas spēlētāju skaita/tipa ievadei(-)
+* izdalīt kārtis 2-4 spēlētājiem(-)
+* atrast pārus (+findPairs)
+* izņemt pārus no rokas (-)
+* ļaut cilvēkam izvēlēties kārti no iepriekšējās rokas(-)
+* apstrādāt kārts izvēles ievades kļūdas(-)
+* datoram izvēlēties kārti no iepriekšējā rokas(-)
+* realizēt gājienus pēc kārtas(-)
+* pārbaudīt vai rokās ir kārtis(-)
+* realizēt spēlētāja iziešanu no spēles, kad beidzas kārtis rokā(-)
+* pārbaudīt spēles beigu nosacījumu(-)
+* izvadīt zaudētāju(-)
+* 
+
 # lispGame
 
 Spele Witch
