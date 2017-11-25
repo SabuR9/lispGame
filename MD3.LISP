@@ -59,8 +59,14 @@
 ))
 )
 
-(defun playerInput (cardCount) // vajag uzrakstit lai prasa ievadit lidz bridim kamer nav skaitlis kur ir diapozona 1 - cardCount
-(read)
-)
+
+(defun playerInput (cardCount)
+(setq row -1)
+(print (format nil "Enter card num  1-~a" cardCount) )
+(loop while (or (<= row 0)(> row cardCount)) 
+  do (setf row (read))           ; or better: do (decf row)
+  (if (not (numberp row))(setq row -1) )
+  (if (or (<= row 0)(> row cardCount))(print (format nil "Wrong input! Enter card num  1-~a" cardCount)))
+)row)
 
 
