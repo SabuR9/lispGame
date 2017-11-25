@@ -61,43 +61,43 @@
 
 
 (defun playerCardInput (cardCount)
-(setq row -1)
+(setq rowK -1)
 (print (format nil "Enter card num  1-~a" cardCount) )
-(loop while (or (<= row 0)(> row cardCount)) 
-  do (setf row (read))         
-  (if (not (numberp row))(setq row -1) )
-  (if (or (<= row 0)(> row cardCount))(print (format nil "Wrong input! Enter card num  1-~a" cardCount)))
+(loop while (or (<= rowK 0)(> rowK cardCount)) 
+  do (setf rowK (read))         
+  (if (not (numberp rowK))(setq rowK -1) )
+  (if (or (<= rowK 0)(> rowK cardCount))(print (format nil "Wrong input! Enter card num  1-~a" cardCount)))
 )row)
 
 (defun setPlayers ()
 (print "Input player count 2-4: ")
 (setq playerCount (playerCountInput))
 (print "Input players (C for comput or P for Human player)")
-(setq row 1)
-(setq playerList '())
-(loop while (not(> row playerCount)) 
+(setq rowS 1)
+(loop while (not(> rowS playerCount)) 
   do
- (setq player (playerInput row))     
- (cons  playerList player)
-  (setf row (+ row 1))  
-))
+  (setq player (playerInput rowS))     
+  (setf playerList (list playerList player))
+  (setf rowS (+ rowS 1))
+) playerList
+)
 
 (defun playerInput (playerNum)
-(setq row 'W)
+(setq rowP 'W)
 (print (format nil "Enter player ~a:" playerNum))
-(loop while (not(or (equal row 'C)(equal row 'P))) 
-  do (setf row (read))          
-  (if  (numberp row)(setq row 'W) )
-  (if (not(or (equal row 'C)(equal row 'P))) (print "Wrong input! Enter C for comput or P for Human player"))
-)row
+(loop while (not(or (equal rowP 'C)(equal rowP 'P))) 
+  do (setf rowP (read))          
+  (if  (numberp rowP)(setq rowP 'W) )
+  (if (not(or (equal rowP 'C)(equal rowP 'P))) (print "Wrong input! Enter C for comput or P for Human player"))
+)rowP
 )
 
 (defun playerCountInput ()
-(setq row -1)
-(loop while (or (< row 2)(> row 4))
-  do (setf row (read))          
-  (if  (not(numberp row))(setq row -1) )
-  (if (or (< row 2)(> row 4))(print "Wrong input! Enter number  2-4"))
-)row
+(setq rowC -1)
+(loop while (or (< rowC 2)(> rowC 4))
+  do (setf rowC (read))          
+  (if  (not(numberp rowC))(setq rowC -1) )
+  (if (or (< rowC 2)(> rowC 4))(print "Wrong input! Enter number  2-4"))
+)rowC
 )
 
