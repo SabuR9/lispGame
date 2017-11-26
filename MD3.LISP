@@ -15,7 +15,7 @@
 (defparameter p1cards NIL)
 (defparameter p2cards NIL)
 (defparameter p3cards NIL)
-(defparameter rotation '(0 1 2 3)) ;;Uztaisit lai uzgenere rotaciju kad tiek uzgenerets speletaju saraksts
+(defparameter rotation NIL)
 (defparameter playerCount NIL)
 (defparameter playerList NIL)
 (defparameter splitedCards '((1 2 3)(3 4 5)(5 6 7)(7 8 9))) ;; uztaisit lai sadala kartis, so parametru izmanto lai sadalitu speletaju karsu mainigajos
@@ -189,11 +189,22 @@ c
     (cdr list)
     (cons (car list) (remove-nth (1- n) (cdr list)))))
 
-(defun splitCards ()         
-(if (>= playerCount 1) (setq p0cards (nth 0 splitedCards)))
-(if (>= playerCount 2) (setq p1cards (nth 1 splitedCards)))
-(if (>= playerCount 3) (setq p2cards (nth 2 splitedCards)))
-(if (>= playerCount 4) (setq p3cards (nth 3 splitedCards)))
+(defun splitCards ()
+(shuffleDeck defaultDeck)         
+;;(if (>= playerCount 1) (setq p0cards (nth 0 splitedCards)))
+;;(if (>= playerCount 2) (setq p1cards (nth 1 splitedCards)))
+;;(if (>= playerCount 3) (setq p2cards (nth 2 splitedCards)))
+;;(if (>= playerCount 4) (setq p3cards (nth 3 splitedCards)))
+(setq rowSh 0)
+(loop while (> (length shuffledDeck) 0)
+  do 
+  (eval (read-from-string (format NIL "(setq p~aCards (cons (car shuffledDeck) p~aCards))" rowSh rowSh)))
+  (setq shuffledDeck (cdr shuffledDeck))
+  (setf rowSh (+ rowSh 1))    
+  (if  (equal rowSh playerCount)(setf rowSh 0))
+  
+)
+ (setq playerList (cons player playerList))
 (if (equal playerCount 2) (setq rotation '(0 1)))
 (if (equal playerCount 3) (setq rotation '(0 1 2)))
 (if (equal playerCount 4) (setq rotation '(0 1 2 3)))
