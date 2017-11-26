@@ -120,7 +120,7 @@
 
 
 
-(defun takeCard (cardToTake)
+(defun takeCardOld (cardToTake)
 (print (format nil "Player ~a taking card from ~a" (getCurPlayer) (getPrevPlayer)))
 (setq curPlayer (getCurPlayer))
 (setq prevPlayer (getPrevPlayer))
@@ -146,15 +146,24 @@
 (setq prevCards NIL)
 )
 
+(defun takeCard (cardToTake)
+(print (format nil "Player ~a taking card from ~a" (getCurPlayer) (getPrevPlayer)))
+(eval (read-from-string (format NIL "(setq curCards p~aCards)" (getCurPlayer))))
+(eval (read-from-string (format NIL "(setq prevCards p~aCards)" (getPrevPlayer))))
+(setq curCards (append curCards (list (nth cardToTake prevCards))))
+(setq prevCards (remove-nth cardToTake prevCards))
+(eval (read-from-string (format NIL "(setq p~aCards curCards)" (getCurPlayer))))
+(eval (read-from-string (format NIL "(setq p~aCards prevCards)" (getPrevPlayer))))
+(setq curCards NIL)
+(setq prevCards NIL)
+)
+
 (defun getPrevPlayer ()
 (car (last rotation))
 )
 
 (defun getPrevCardCount ()
-(if (equal (getPrevPlayer) 0)(setq c (length p0cards)))
-(if (equal (getPrevPlayer) 1)(setq c (length p1cards)))
-(if (equal (getPrevPlayer) 2)(setq c (length p2cards)))
-(if (equal (getPrevPlayer) 3)(setq c (length p3cards)))
+(eval (read-from-string (format NIL "(setq c (length p~aCards))" (getPrevPlayer))))
 c
 )
 
