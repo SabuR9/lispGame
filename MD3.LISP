@@ -60,7 +60,9 @@
 
 (defun input (player cardCount)
 
-(setq value (nth player playerList)) 
+(setq value (nth player playerList))
+(print cardCount)
+(if (equal cardcount 0) (setq cardcount 1)) ;;;;!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
 (cond ((equal value 'C) (random cardCount)) 
         ((equal value 'P) 
 (print (format nil "Enter card num  1-~a" cardCount) )
@@ -181,6 +183,11 @@ c
 (printHands)
 )
 
+(defun checkEnd ()
+(if (> (length rotation) 1)(nextTurn))
+(if (equal (length rotation) 1) (print (format nil "Player ~a is biggest looser ever!!!" (getCurPlayer))))
+)
+
 (defun remove-nth (n list)
   (declare
     (type (integer 0) n)
@@ -223,5 +230,33 @@ c
 (setq playerList (setPlayers))
 (splitCards)
 (printHands)
-(nextTurn)
+(loop while (> (length rotation) 1)
+do
+(clearList)
+(checkForEmptyHand)
+(checkEnd)
+)
+)
+
+(defun deleteDup (lst)
+(remove-if #'(lambda (var) (member var (findPairs lst) :test #'equal)) lst)
+)
+
+(defun clearList ()
+(setq p0cards (deleteDup p0cards))
+(setq p1cards (deleteDup p1cards))
+(setq p2cards (deleteDup p2cards))
+(setq p3cards (deleteDup p3cards))
+)
+
+(defun checkForEmptyHand ()
+(setq rowD 0)
+(loop while (< rowD playerCount)
+  do 
+  (eval (read-from-string (format NIL "(setq rowCardCount (car p~aCards))" rowD)))
+  
+  (print (format nil "Player : ~a cardCount : ~a" rowD rowCardCount))
+  (if  (equal rowCardCount NIL)(setq rotation (remove rowD rotation)))
+  (setf rowD (+ rowD 1))
+)
 )
