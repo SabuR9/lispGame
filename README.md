@@ -3,7 +3,7 @@ TODO:
 * izvēlēties spēletāju skaitu(+setPlayers)
 * izvēlēties kurš spēlētājs cilvēks/dators(+playerInput)
 * apstrādāt ievades kļūdas spēlētāju skaita/tipa ievadei(+)
-* jabut vismaz cienam Human player (-)
+* jabut vismaz cienam Human player (+playerInput)
 * izdalīt kārtis 2-4 spēlētājiem(+splitCards)
 * atrast pārus (+findPairs)
 * izņemt pārus no rokas (+clearList)
