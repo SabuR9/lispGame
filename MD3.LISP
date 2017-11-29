@@ -61,8 +61,7 @@
 (defun input (player cardCount)
 
 (setq value (nth player playerList))
-(print cardCount)
-(if (equal cardcount 0) (setq cardcount 1)) ;;;;!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+;;(if (equal cardcount 0) (setq cardcount 1)) ;;;;!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
 (cond ((equal value 'C) (random cardCount)) 
         ((equal value 'P) 
 (print (format nil "Enter card num  1-~a" cardCount) )
@@ -102,6 +101,7 @@
   do (setf rowP (read))          
   (if  (numberp rowP)(setq rowP 'W) )
   (if (not(or (equal rowP 'C)(equal rowP 'P))) (print "Wrong input! Enter C for comput or P for Human player"))
+  (if (and (equal (length playerList) (- playerCount 1)) (equal (member 'P playerList) NIL) (not(equal rowP 'P))) (progn(print "Wrong input! Enter P for Human player")(setq rowP 'W)))
 )rowP
 )
 
@@ -198,30 +198,27 @@ c
 
 (defun splitCards ()
 (shuffleDeck defaultDeck)         
-;;(if (>= playerCount 1) (setq p0cards (nth 0 splitedCards)))
-;;(if (>= playerCount 2) (setq p1cards (nth 1 splitedCards)))
-;;(if (>= playerCount 3) (setq p2cards (nth 2 splitedCards)))
-;;(if (>= playerCount 4) (setq p3cards (nth 3 splitedCards)))
 (setq rowSh 0)
 (loop while (> (length shuffledDeck) 0)
   do 
   (eval (read-from-string (format NIL "(setq p~aCards (cons (car shuffledDeck) p~aCards))" rowSh rowSh)))
   (setq shuffledDeck (cdr shuffledDeck))
   (setf rowSh (+ rowSh 1))    
-  (if  (equal rowSh playerCount)(setf rowSh 0))
-  
+  (if  (equal rowSh playerCount )(setf rowSh 0))
 )
- (setq playerList (cons player playerList))
 (if (equal playerCount 2) (setq rotation '(0 1)))
 (if (equal playerCount 3) (setq rotation '(0 1 2)))
 (if (equal playerCount 4) (setq rotation '(0 1 2 3)))
 )
 
 (defun printHands ()
-(print (format nil "Player 0 : ~A" p0cards))
-(print (format nil "Player 1 : ~A" p1cards))
-(print (format nil "Player 2 : ~A" p2cards))
-(print (format nil "Player 3 : ~A" p3cards))
+(setq rowPrint 0)
+(loop while (< rowPrint playerCount)
+  do 
+  (eval (read-from-string (format NIL "(setq printCards p~aCards)" rowPrint)))
+  (print (format nil "Player ~a : ~A" rowPrint printCards))
+  (setf rowPrint (+ rowPrint 1))    
+)
 (print (format nil "Rotation : ~A" rotation))
 (print "")
 )
@@ -255,7 +252,7 @@ do
   do 
   (eval (read-from-string (format NIL "(setq rowCardCount (car p~aCards))" rowD)))
   
-  (print (format nil "Player : ~a cardCount : ~a" rowD rowCardCount))
+  ;;(print (format nil "Player : ~a cardCount : ~a" rowD rowCardCount))
   (if  (equal rowCardCount NIL)(setq rotation (remove rowD rotation)))
   (setf rowD (+ rowD 1))
 )
